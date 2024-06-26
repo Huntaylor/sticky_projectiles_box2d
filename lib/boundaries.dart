@@ -11,7 +11,7 @@ List<Wall> createBoundaries(Forge2DGame game, {double? strokeWidth}) {
   return [
     Wall(topLeft, topRight, strokeWidth: strokeWidth),
     Wall(topRight, bottomRight, strokeWidth: strokeWidth),
-    Wall(bottomLeft, bottomRight, strokeWidth: strokeWidth)..debugMode = true,
+    Wall(bottomLeft, bottomRight, strokeWidth: strokeWidth),
     Wall(topLeft, bottomLeft, strokeWidth: strokeWidth),
   ];
 }
