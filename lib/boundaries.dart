@@ -1,17 +1,18 @@
+import 'package:flame/extensions.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 
 List<Wall> createBoundaries(Forge2DGame game, {double? strokeWidth}) {
-  final worldSize = game.size;
-  final topLeft = Vector2.zero();
-  final topRight = Vector2(worldSize.x, 0);
-  final bottomRight = Vector2(worldSize.x, worldSize.y);
-  final bottomLeft = Vector2(0, worldSize.y);
+  final visibleRect = game.camera.visibleWorldRect;
+  final topLeft = visibleRect.topLeft.toVector2();
+  final topRight = visibleRect.topRight.toVector2();
+  final bottomRight = visibleRect.bottomRight.toVector2();
+  final bottomLeft = visibleRect.bottomLeft.toVector2();
 
   return [
-    Wall(topLeft, topRight, strokeWidth: strokeWidth)..debugMode = true,
-    Wall(topRight, bottomRight, strokeWidth: strokeWidth)..debugMode = true,
+    Wall(topLeft, topRight, strokeWidth: strokeWidth),
+    Wall(topRight, bottomRight, strokeWidth: strokeWidth),
     Wall(bottomLeft, bottomRight, strokeWidth: strokeWidth)..debugMode = true,
-    Wall(topLeft, bottomLeft, strokeWidth: strokeWidth)..debugMode = true,
+    Wall(topLeft, bottomLeft, strokeWidth: strokeWidth),
   ];
 }
 
