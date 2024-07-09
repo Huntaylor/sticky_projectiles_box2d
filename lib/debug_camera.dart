@@ -21,81 +21,24 @@ class DebugCameraController extends PositionComponent
     this.zoomSpeed = 0.1,
   });
 
-  // @override
-  // Future<void> onLoad() async {
-  //   await super.onLoad();
+  @override
+  Future<void> onLoad() async {
+    await super.onLoad();
 
-  //   add(
-  //     _text = TextComponent(
-  //       anchor: Anchor.center,
-  //       position: size / 2,
-  //     ),
-  //   );
-
-  //   add(
-  //     KeyboardListenerComponent(
-  //       keyDown: {
-  //         LogicalKeyboardKey.keyW: (_) {
-  //           _direction.y = -1;
-  //           return false;
-  //         },
-  //         LogicalKeyboardKey.keyS: (_) {
-  //           _direction.y = 1;
-  //           return false;
-  //         },
-  //         LogicalKeyboardKey.keyA: (_) {
-  //           _direction.x = -1;
-  //           return false;
-  //         },
-  //         LogicalKeyboardKey.keyD: (_) {
-  //           _direction.x = 1;
-  //           return false;
-  //         },
-  //         LogicalKeyboardKey.keyM: (_) {
-  //           _speed = 900;
-  //           return false;
-  //         },
-  //       },
-  //       keyUp: {
-  //         LogicalKeyboardKey.keyW: (_) {
-  //           if (_direction.y == -1) {
-  //             _direction.y = 0;
-  //           }
-  //           return false;
-  //         },
-  //         LogicalKeyboardKey.keyS: (_) {
-  //           if (_direction.y == 1) {
-  //             _direction.y = 0;
-  //           }
-  //           return false;
-  //         },
-  //         LogicalKeyboardKey.keyA: (_) {
-  //           if (_direction.x == -1) {
-  //             _direction.x = 0;
-  //           }
-  //           return false;
-  //         },
-  //         LogicalKeyboardKey.keyD: (_) {
-  //           if (_direction.x == 1) {
-  //             _direction.x = 0;
-  //           }
-  //           return false;
-  //         },
-  //         LogicalKeyboardKey.keyM: (_) {
-  //           _speed = 300;
-  //           return false;
-  //         },
-  //       },
-  //     ),
-  //   );
-  // }
+    add(
+      _text = TextComponent(
+        anchor: Anchor.center,
+        position: size / 2,
+      ),
+    );
+  }
 
   @override
   bool onKeyEvent(KeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
     final delta = 1 / game.camera.viewfinder.zoom;
 
     if (keysPressed.contains(LogicalKeyboardKey.arrowLeft)) {
-      // game.camera.moveBy(Vector2(-moveSpeed * delta, 0));
+      game.camera.moveBy(Vector2(-moveSpeed * delta, 0));
     }
     if (keysPressed.contains(LogicalKeyboardKey.arrowRight)) {
       game.camera.moveBy(Vector2(moveSpeed * delta, 0));

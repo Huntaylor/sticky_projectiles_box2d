@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
@@ -30,7 +29,6 @@ class MainApp extends StatelessWidget {
 
 class StickyProjectilesGame extends Forge2DGame
     with MouseMovementDetector, HasKeyboardHandlerComponents {
-  static final _cameraViewport = Vector2(800, 600);
   StickyProjectilesGame()
       : super(
           world: ProjectileWorld(),
@@ -47,32 +45,13 @@ class StickyProjectilesGame extends Forge2DGame
 
   @override
   FutureOr<void> onLoad() async {
-    final debugAnchor = DebugCameraAnchor(
-        levelSize: Vector2(
-          1600,
-          1200,
-        ),
-        cameraViewport: _cameraViewport);
-    debugMode = true;
-    await _drawPolygons();
     final debugCamera =
         DebugCameraController(position: camera.viewport.position.clone());
 
-    // add(debugCamera);
     add(debugCamera);
-    // debugCamera.add(debugAnchor);
-    // camera.follow(debugAnchor);
+    camera.follow(debugCamera);
 
     return super.onLoad();
-  }
-
-  _drawPolygons() {
-    add(
-      CirclePolygon(
-        Vector2(100, 900),
-        OutlineComponent(),
-      ),
-    );
   }
 }
 
@@ -81,26 +60,19 @@ class ProjectileWorld extends Forge2DWorld
   @override
   Future<void> onLoad() async {
     await super.onLoad();
-    addAll(createBoundaries(game, strokeWidth: 2));
-    final groundWidth = game.size.x - 1; // 1 pixel less than game width
-    add(Ground(
-        size: Vector2(groundWidth, 50),
-        position: Vector2(0, game.size.y + 50)));
-  }
-}
+    addAll(
+      createBoundaries(game),
+    );
 
-class Ground extends PositionComponent {
-  Ground({super.position, super.size});
-
-  final Paint groundPaint = Paint();
-  @override
-  FutureOr<void> onLoad() {
-    debugMode = true;
-    return super.onLoad();
+    await _drawPolygons();
   }
 
-  @override
-  void render(Canvas canvas) {
-    canvas.drawRect(size.toRect(), groundPaint);
+  _drawPolygons() {
+    add(
+      CirclePolygon(
+        position: Vector2(-55, 30),
+        radius: 2,
+      ),
+    );
   }
 }
