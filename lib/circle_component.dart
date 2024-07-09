@@ -3,16 +3,25 @@ import 'dart:ui';
 
 import 'package:flame/components.dart';
 import 'package:flame/palette.dart';
+import 'package:sticky_projectiles_box2d/arrow.dart';
 import 'package:sticky_projectiles_box2d/main.dart';
 
 class CirclePolygon extends CircleComponent
     with HasGameRef<StickyProjectilesGame> {
-  CirclePolygon({super.position, super.angle, super.radius})
+  CirclePolygon(
+      {super.position, super.angle, super.radius, required this.arrow})
       : super(
           paint: BasicPalette.blue.paint(),
           anchor: Anchor.center,
         );
   final _upVector = Vector2(0, 1);
+  final PlayerArrow arrow;
+
+  @override
+  Future<void> onLoad() {
+    add(arrow);
+    return super.onLoad();
+  }
 
   @override
   void update(double dt) {
@@ -21,7 +30,7 @@ class CirclePolygon extends CircleComponent
   }
 
   @override
-  void render(Canvas canvas) {
+  void render(Canvas canvas) async {
     super.render(canvas);
     canvas.drawLine(
       const Offset(2, 2),

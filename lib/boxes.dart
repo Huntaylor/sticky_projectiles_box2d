@@ -63,8 +63,8 @@ class DraggableBox extends Box with DragCallbacks {
   }
 
   @override
-  bool onDragUpdate(DragUpdateEvent info) {
-    final target = info.localEndPosition;
+  bool onDragUpdate(DragUpdateEvent event) {
+    final target = event.localEndPosition;
     final mouseJointDef = MouseJointDef()
       ..maxForce = body.mass * 300
       ..dampingRatio = 0
@@ -84,12 +84,12 @@ class DraggableBox extends Box with DragCallbacks {
   }
 
   @override
-  void onDragEnd(DragEndEvent info) {
-    super.onDragEnd(info);
+  void onDragEnd(DragEndEvent event) {
+    super.onDragEnd(event);
     if (mouseJoint == null) {
       return;
     }
     _destroyJoint = true;
-    info.continuePropagation = false;
+    event.continuePropagation = false;
   }
 }

@@ -9,9 +9,9 @@ class DebugCameraController extends PositionComponent
   final double moveSpeed;
   final double zoomSpeed;
 
-  final _direction = Vector2.zero();
-  late final TextComponent _text;
-  double _speed = 300;
+  // final _direction = Vector2.zero();
+  // late final TextComponent _text;
+  final double _speed = 300;
 
   double get speed => _speed;
 
@@ -25,12 +25,12 @@ class DebugCameraController extends PositionComponent
   Future<void> onLoad() async {
     await super.onLoad();
 
-    add(
-      _text = TextComponent(
-        anchor: Anchor.center,
-        position: size / 2,
-      ),
-    );
+    // add(
+    //   _text = TextComponent(
+    //     anchor: Anchor.center,
+    //     position: size / 2,
+    //   ),
+    // );
   }
 
   @override

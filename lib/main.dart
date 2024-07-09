@@ -4,6 +4,7 @@ import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/material.dart';
+import 'package:sticky_projectiles_box2d/arrow.dart';
 import 'package:sticky_projectiles_box2d/boundaries.dart';
 import 'package:sticky_projectiles_box2d/circle_component.dart';
 import 'package:sticky_projectiles_box2d/debug_camera.dart';
@@ -45,6 +46,7 @@ class StickyProjectilesGame extends Forge2DGame
 
   @override
   FutureOr<void> onLoad() async {
+    await images.loadAllImages();
     final debugCamera =
         DebugCameraController(position: camera.viewport.position.clone());
 
@@ -56,23 +58,21 @@ class StickyProjectilesGame extends Forge2DGame
 }
 
 class ProjectileWorld extends Forge2DWorld
-    with HasGameReference<Forge2DGame>, TapCallbacks {
+    with HasGameReference<StickyProjectilesGame>, TapCallbacks {
+  late PlayerArrow arrow;
+
   @override
   Future<void> onLoad() async {
     await super.onLoad();
     addAll(
       createBoundaries(game),
     );
-
-    await _drawPolygons();
-  }
-
-  _drawPolygons() {
-    add(
-      CirclePolygon(
-        position: Vector2(-55, 30),
-        radius: 2,
-      ),
+    arrow = PlayerArrow(Vector2(-55, 30), 0);
+    final circle = CirclePolygon(
+      arrow: arrow,
+      position: Vector2(-55, 30),
+      radius: 2,
     );
+    add(circle);
   }
 }
